@@ -1,5 +1,3 @@
-// Product-related type definitions based on real API
-// Single Responsibility: Only product types and interfaces
 
 export interface ProductPrice {
   price: number;

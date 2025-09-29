@@ -1,5 +1,3 @@
-// Store UI-related type definitions
-// Single Responsibility: Only store UI types and interfaces
 
 export interface StoreHeaderProps {
   user: {

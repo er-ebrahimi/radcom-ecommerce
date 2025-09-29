@@ -1,5 +1,3 @@
-// Hook for fetching single product from real API
-// Single Responsibility: Only handle single product fetching
 
 import { useQuery } from '@tanstack/react-query';
 import { ProductApiService } from '../../services/product-api';

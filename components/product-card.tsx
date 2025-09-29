@@ -3,10 +3,18 @@
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { useAppStore } from "@/lib/store";
+import { useCart } from "@/lib/hooks/cart/use-cart";
 import { showToast } from "@/lib/toast";
 import { formatCurrencyRTL } from "@/lib/utils";
-import { ShoppingCart, Star, Eye, Heart, Package } from "lucide-react";
+import {
+  ShoppingCart,
+  Star,
+  Eye,
+  Heart,
+  Package,
+  Plus,
+  Minus,
+} from "lucide-react";
 import type { Product } from "@/lib/types/product";
 
 interface ProductCardProps {
@@ -14,17 +22,30 @@ interface ProductCardProps {
 }
 
 export function ProductCard({ product }: ProductCardProps) {
-  const { addToCart } = useAppStore();
+  const { addItem, updateQuantity, removeItem, isInCart, getItemQuantity } =
+    useCart();
 
   const handleAddToCart = () => {
-    addToCart({
-      id: product.id.toString(),
-      name: product.title,
-      price: product.price.price,
-      image: undefined, // API doesn't provide images in this response
-    });
+    addItem(product, 1);
     showToast.addedToCart(product.title);
   };
+
+  const handleIncreaseQuantity = () => {
+    const currentQuantity = getItemQuantity(product.id);
+    updateQuantity(product.id, currentQuantity + 1);
+  };
+
+  const handleDecreaseQuantity = () => {
+    const currentQuantity = getItemQuantity(product.id);
+    if (currentQuantity > 1) {
+      updateQuantity(product.id, currentQuantity - 1);
+    } else {
+      removeItem(product.id);
+    }
+  };
+
+  const isProductInCart = isInCart(product.id);
+  const cartQuantity = getItemQuantity(product.id);
 
   const formatPrice = (price: number) => {
     if (price === 0) return "قیمت تماس بگیرید";
@@ -115,7 +136,7 @@ export function ProductCard({ product }: ProductCardProps) {
                 {formatPrice(product.price.was_price)}
               </span>
               <Badge className="bg-gradient-to-r from-red-500 to-pink-500 text-white border-0 text-xs px-2 py-1">
-                {product.price.you_save_percent}% تخفیف
+                0% تخفیف
               </Badge>
             </div>
           )}
@@ -136,24 +157,62 @@ export function ProductCard({ product }: ProductCardProps) {
 
       {/* Action Button - Fixed at bottom */}
       <div className="px-6 pb-6 mt-auto">
-        <Button
-          onClick={handleAddToCart}
-          disabled={!isInStock}
-          className={`w-full h-12 font-semibold text-base rounded-xl transition-all duration-300 ${
-            isInStock
-              ? "bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white shadow-lg hover:shadow-xl hover:scale-105"
-              : "bg-gray-100 text-gray-400 cursor-not-allowed"
-          }`}
-        >
-          {isInStock ? (
-            <div className="flex items-center gap-2">
-              <ShoppingCart className="h-5 w-5" />
-              افزودن به سبد خرید
+        {isProductInCart ? (
+          <div className="bg-gradient-to-r from-emerald-50 via-green-50 to-teal-50 border border-emerald-200/60 rounded-xl p-4 shadow-sm hover:shadow-md transition-all duration-300">
+            <div className="flex items-center justify-between">
+              {/* Quantity Controls */}
+              <div className="flex items-center gap-2">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={handleDecreaseQuantity}
+                  className="h-9 w-9 p-0 rounded-full bg-white hover:bg-emerald-600 hover:text-white border-emerald-300 shadow-sm hover:shadow-md transition-all duration-200"
+                >
+                  <Minus className="h-4 w-4 text-emerald-600 hover:text-white transition-colors" />
+                </Button>
+
+                <span className="w-12 text-center font-semibold text-green-400 text-lg">
+                  {cartQuantity}
+                </span>
+
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={handleIncreaseQuantity}
+                  disabled={cartQuantity >= (product.quantity || 999)}
+                  className="h-9 w-9 p-0 rounded-full bg-white hover:bg-emerald-600 hover:text-white border-emerald-300 shadow-sm hover:shadow-md transition-all duration-200 disabled:opacity-50 disabled:hover:bg-white disabled:hover:text-emerald-600"
+                >
+                  <Plus className="h-4 w-4 text-emerald-600 hover:text-white transition-colors" />
+                </Button>
+              </div>
+
+              {/* Cart Status */}
+              <div className="flex items-center gap-2 text-green-600">
+                <ShoppingCart className="h-5 w-5" />
+                <span className="font-semibold">در سبد</span>
+              </div>
             </div>
-          ) : (
-            "ناموجود"
-          )}
-        </Button>
+          </div>
+        ) : (
+          <Button
+            onClick={handleAddToCart}
+            disabled={!isInStock}
+            className={`w-full h-12 font-semibold text-base rounded-xl transition-all duration-300 ${
+              isInStock
+                ? "bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white shadow-lg hover:shadow-xl hover:scale-105"
+                : "bg-gray-100 text-gray-400 cursor-not-allowed"
+            }`}
+          >
+            {isInStock ? (
+              <div className="flex items-center gap-2">
+                <ShoppingCart className="h-5 w-5" />
+                افزودن به سبد خرید
+              </div>
+            ) : (
+              "ناموجود"
+            )}
+          </Button>
+        )}
       </div>
     </Card>
   );

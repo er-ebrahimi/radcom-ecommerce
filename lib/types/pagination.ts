@@ -1,5 +1,3 @@
-// Pagination-related type definitions
-// Single Responsibility: Only pagination types and interfaces
 
 export interface PaginationState {
   currentPage: number;

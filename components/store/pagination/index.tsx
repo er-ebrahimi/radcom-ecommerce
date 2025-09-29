@@ -74,7 +74,7 @@ export function PaginationControls({
         disabled={!hasPreviousPage || isLoading}
         className="h-10 w-10 p-0 rounded-lg border-2 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
       >
-        <ChevronsRight className="h-4 w-4" />
+        <ChevronsRight className="h-4 w-4 text-gray-500" />
       </Button>
       {/* Previous Page Button */}
       <Button
@@ -82,9 +82,9 @@ export function PaginationControls({
         size="sm"
         onClick={() => onPageChange(currentPage - 1)}
         disabled={!hasPreviousPage || isLoading}
-        className="h-10 w-10 p-0 rounded-lg border-2 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+        className="h-10 w-10 p-0 rounded-lg border-2 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed bg-gray-100"
       >
-        <ChevronRight className="h-4 w-4" />
+        <ChevronRight className="h-4 w-4 text-gray-500 " />
       </Button>
       {/* Page Numbers */}
       <div className="flex items-center gap-1">
@@ -99,7 +99,7 @@ export function PaginationControls({
                 className={`h-10 w-10 p-0 rounded-lg font-semibold transition-all duration-200 ${
                   page === currentPage
                     ? "bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg hover:shadow-xl"
-                    : "border-2 hover:bg-gray-50 hover:border-indigo-300"
+                    : "border-2 hover:bg-gray-50 hover:border-indigo-300 bg-gray-100  text-gray-400"
                 } disabled:opacity-50 disabled:cursor-not-allowed`}
               >
                 {page}
@@ -116,9 +116,9 @@ export function PaginationControls({
         size="sm"
         onClick={() => onPageChange(currentPage + 1)}
         disabled={!hasNextPage || isLoading}
-        className="h-10 w-10 p-0 rounded-lg border-2 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+        className="h-10 w-10 p-0 rounded-lg border-2 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed bg-gray-100"
       >
-        <ChevronLeft className="h-4 w-4" />
+        <ChevronLeft className="h-4 w-4 text-gray-500" />
       </Button>
       {/* Last Page Button */}
       <Button
@@ -126,9 +126,9 @@ export function PaginationControls({
         size="sm"
         onClick={() => onPageChange(totalPages)}
         disabled={!hasNextPage || isLoading}
-        className="h-10 w-10 p-0 rounded-lg border-2 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+        className="h-10 w-10 p-0 rounded-lg border-2 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed bg-gray-100"
       >
-        <ChevronsLeft className="h-4 w-4" />
+        <ChevronsLeft className="h-4 w-4 text-gray-500" />
       </Button>
     </div>
   );

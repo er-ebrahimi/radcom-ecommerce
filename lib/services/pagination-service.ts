@@ -1,6 +1,3 @@
-// Pagination service utilities
-// Single Responsibility: Only pagination-related calculations and utilities
-// Open/Closed Principle: Easy to extend with new pagination features
 
 import type { PaginationState, PaginationFilters } from '../types/pagination';
 

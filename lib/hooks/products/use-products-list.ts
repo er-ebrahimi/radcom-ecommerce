@@ -1,5 +1,3 @@
-// Hook for fetching products list from real API
-// Single Responsibility: Only handle products list fetching
 
 import { useQuery } from '@tanstack/react-query';
 import { ProductApiService } from '../../services/product-api';

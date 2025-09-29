@@ -1,6 +1,7 @@
 import React from "react";
 import { Package, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { CartIconComponent } from "@/components/cart/cart-icon";
 import type { StoreHeaderProps } from "@/lib/types/store-ui";
 
 export function StoreHeader({ user, onLogin }: StoreHeaderProps) {
@@ -22,6 +23,10 @@ export function StoreHeader({ user, onLogin }: StoreHeaderProps) {
             </div>
           </div>
           <div className="flex items-center gap-4">
+            <CartIconComponent
+              onCartClick={() => (window.location.href = "/cart")}
+            />
+
             {user.id ? (
               <div className="flex items-center gap-3 bg-gradient-to-r from-green-50 to-emerald-50 px-4 py-2 rounded-xl border border-green-200">
                 <div className="p-2 bg-gradient-to-r from-green-500 to-emerald-500 rounded-full shadow-md">

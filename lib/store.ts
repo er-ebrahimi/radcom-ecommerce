@@ -14,10 +14,13 @@ interface AppState {
   cart: {
     items: Array<{
       id: string;
+      productId: number;
       name: string;
       price: number;
       quantity: number;
       image?: string;
+      maxQuantity?: number;
+      isAvailable?: boolean;
     }>;
     total: number;
   };
@@ -34,8 +37,8 @@ interface AppState {
   clearUser: () => void;
   
   addToCart: (item: Omit<AppState['cart']['items'][0], 'quantity'>) => void;
-  removeFromCart: (id: string) => void;
-  updateCartItemQuantity: (id: string, quantity: number) => void;
+  removeFromCart: (productId: number) => void;
+  updateCartItemQuantity: (productId: number, quantity: number) => void;
   clearCart: () => void;
   
   setLoading: (loading: boolean) => void;
@@ -71,11 +74,11 @@ export const useAppStore = create<AppState>()(
       
       // Cart actions
       addToCart: (item) => set((state) => {
-        const existingItem = state.cart.items.find(cartItem => cartItem.id === item.id);
+        const existingItem = state.cart.items.find(cartItem => cartItem.productId === item.productId);
         
         if (existingItem) {
           const updatedItems = state.cart.items.map(cartItem =>
-            cartItem.id === item.id
+            cartItem.productId === item.productId
               ? { ...cartItem, quantity: cartItem.quantity + 1 }
               : cartItem
           );
@@ -89,21 +92,21 @@ export const useAppStore = create<AppState>()(
         }
       }),
       
-      removeFromCart: (id) => set((state) => {
-        const updatedItems = state.cart.items.filter(item => item.id !== id);
+      removeFromCart: (productId) => set((state) => {
+        const updatedItems = state.cart.items.filter(item => item.productId !== productId);
         const total = updatedItems.reduce((sum, cartItem) => sum + (cartItem.price * cartItem.quantity), 0);
         return { cart: { items: updatedItems, total } };
       }),
       
-      updateCartItemQuantity: (id, quantity) => set((state) => {
+      updateCartItemQuantity: (productId, quantity) => set((state) => {
         if (quantity <= 0) {
-          const updatedItems = state.cart.items.filter(item => item.id !== id);
+          const updatedItems = state.cart.items.filter(item => item.productId !== productId);
           const total = updatedItems.reduce((sum, cartItem) => sum + (cartItem.price * cartItem.quantity), 0);
           return { cart: { items: updatedItems, total } };
         }
         
         const updatedItems = state.cart.items.map(item =>
-          item.id === id ? { ...item, quantity } : item
+          item.productId === productId ? { ...item, quantity } : item
         );
         const total = updatedItems.reduce((sum, cartItem) => sum + (cartItem.price * cartItem.quantity), 0);
         return { cart: { items: updatedItems, total } };
