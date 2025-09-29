@@ -155,7 +155,7 @@ export function ProductCard({ product }: ProductCardProps) {
                   variant="outline"
                   size="sm"
                   onClick={handleDecreaseQuantity}
-                  className="h-9 w-9 p-0 rounded-full bg-white hover:bg-emerald-600 hover:text-white border-emerald-300 shadow-sm hover:shadow-md transition-all duration-200"
+                  className="h-9 w-9 p-0 rounded-full bg-white hover:bg-emerald-300 hover:text-white border-emerald-300 shadow-sm hover:shadow-md transition-all duration-200"
                 >
                   <Minus className="h-4 w-4 text-emerald-600 hover:text-white transition-colors" />
                 </Button>
@@ -169,7 +169,7 @@ export function ProductCard({ product }: ProductCardProps) {
                   size="sm"
                   onClick={handleIncreaseQuantity}
                   disabled={cartQuantity >= (product.quantity || 999)}
-                  className="h-9 w-9 p-0 rounded-full bg-white hover:bg-emerald-600 hover:text-white border-emerald-300 shadow-sm hover:shadow-md transition-all duration-200 disabled:opacity-50 disabled:hover:bg-white disabled:hover:text-emerald-600"
+                  className="h-9 w-9 p-0 rounded-full bg-white hover:bg-emerald-300 hover:text-white border-emerald-300 shadow-sm hover:shadow-md transition-all duration-200 disabled:opacity-50 disabled:hover:bg-white disabled:hover:text-emerald-600"
                 >
                   <Plus className="h-4 w-4 text-emerald-600 hover:text-white transition-colors" />
                 </Button>

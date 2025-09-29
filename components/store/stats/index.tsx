@@ -47,7 +47,7 @@ export function StatsSection({
       <Card className="bg-gradient-to-br from-purple-500 to-pink-600 text-white border-0 shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105">
         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
           <CardTitle className="text-sm font-semibold text-purple-100">
-            مجموع سبد
+            مجموع سبد (با مالیات و ارسال)
           </CardTitle>
           <div className="p-2 bg-white/20 rounded-lg">
             <DollarSign className="h-5 w-5 text-white" />
@@ -60,6 +60,7 @@ export function StatsSection({
               : "0 تومان"}
           </div>
           <p className="text-sm text-purple-100 font-medium">مجموع خرید</p>
+          {/* Information Section using shadcn Alert */}
         </CardContent>
       </Card>
     </div>

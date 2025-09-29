@@ -13,7 +13,7 @@ export class CartService {
     const tax = subtotal * 0.1;
     
     // Shipping calculation (free over 500,000 Toman)
-    const shipping = subtotal >= 500000 ? 0 : 30000;
+    const shipping = subtotal >= 500000 ? 0 : subtotal === 0 ? 0 : 30000;
     
     // Discount calculation (5% for orders over 1,000,000 Toman)
     const discount = subtotal >= 1000000 ? subtotal * 0.05 : 0;
