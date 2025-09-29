@@ -7,7 +7,7 @@ import type { Product } from '../../types';
 export function useCart() {
   const { cart, setLoading } = useAppStore();
 
-  // Add item to cart
+  
   const addItem = useCallback((product: Product, quantity: number = 1) => {
     setLoading(true);
     
@@ -15,7 +15,7 @@ export function useCart() {
       const existingItem = CartService.findCartItem(cart.items, product.id);
       
       if (existingItem) {
-        // Update existing item quantity directly
+        
         const updatedItems = cart.items.map(cartItem =>
           cartItem.productId === product.id
             ? { ...cartItem, quantity: cartItem.quantity + quantity }
@@ -30,14 +30,14 @@ export function useCart() {
           }
         });
       } else {
-        // Add new item
+        
         const newItem = {
           id: `cart-${product.id}-${Date.now()}`,
           productId: product.id,
           name: product.title,
           price: product.price.price,
           quantity,
-          image: undefined, // API doesn't provide media URLs
+          image: undefined, 
           maxQuantity: product.quantity,
           isAvailable: product.deliverable,
         };
@@ -59,7 +59,7 @@ export function useCart() {
     }
   }, [cart.items, setLoading]);
 
-  // Remove item from cart
+  
   const removeItem = useCallback((productId: number) => {
     setLoading(true);
     
@@ -80,7 +80,7 @@ export function useCart() {
     }
   }, [cart.items, setLoading]);
 
-  // Update item quantity
+  
   const updateQuantity = useCallback((productId: number, quantity: number) => {
     if (quantity <= 0) {
       removeItem(productId);
@@ -111,7 +111,7 @@ export function useCart() {
     }
   }, [cart.items, removeItem, setLoading]);
 
-  // Clear entire cart
+  
   const clearCart = useCallback(() => {
     setLoading(true);
     
@@ -129,29 +129,29 @@ export function useCart() {
     }
   }, [setLoading]);
 
-  // Get cart summary
+  
   const getSummary = useCallback(() => {
     return CartService.calculateSummary(cart.items);
   }, [cart.items]);
 
-  // Check if product is in cart
+  
   const isInCart = useCallback((productId: number) => {
     return CartService.isInCart(cart.items, productId);
   }, [cart.items]);
 
-  // Get item quantity in cart
+  
   const getItemQuantity = useCallback((productId: number) => {
     const item = CartService.findCartItem(cart.items, productId);
     return item?.quantity || 0;
   }, [cart.items]);
 
-  // Validate cart
+  
   const validateCart = useCallback(() => {
     return CartService.validateCart(cart.items);
   }, [cart.items]);
 
   return {
-    // State
+    
     items: cart.items,
     total: cart.total,
     summary: getSummary(),

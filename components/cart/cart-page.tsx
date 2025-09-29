@@ -21,8 +21,6 @@ export function CartPage() {
     clearCart,
     validateCart,
   } = useCart();
-
-  // Handle hydration
   useEffect(() => {
     setIsHydrated(true);
   }, []);
@@ -34,7 +32,6 @@ export function CartPage() {
   const handleCheckout = () => {
     const validation = validateCart();
     if (validation.isValid) {
-      // TODO: Navigate to checkout page
       console.log("Proceeding to checkout...");
     } else {
       console.error("Cart validation failed:", validation.errors);
@@ -47,7 +44,6 @@ export function CartPage() {
     }
   };
 
-  // Show loading state during hydration
   if (!isHydrated) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 flex items-center justify-center">
