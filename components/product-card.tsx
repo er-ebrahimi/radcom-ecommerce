@@ -58,17 +58,6 @@ export function ProductCard({ product }: ProductCardProps) {
     <Card className="group w-full max-w-sm mx-auto bg-white border border-gray-200 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1 overflow-hidden rounded-2xl flex flex-col h-full">
       {/* Product Image Section */}
       <div className="relative h-56 bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
-        {/* Wishlist Button */}
-        <div className="absolute top-4 left-4 z-10">
-          <Button
-            size="sm"
-            variant="ghost"
-            className="h-9 w-9 p-0 bg-white/90 hover:bg-white rounded-full shadow-lg hover:shadow-xl transition-all duration-200"
-          >
-            <Heart className="h-4 w-4 text-gray-600 hover:text-red-500 transition-colors" />
-          </Button>
-        </div>
-
         {/* New Badge */}
         {product.is_new && (
           <div className="absolute top-4 right-4 z-10">
